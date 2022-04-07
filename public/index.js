@@ -319,7 +319,11 @@ function saveToURL() {
     str += sanitizeNconvert(rows[i].cells[1].innerHTML);
     str += "|";
   }
+
   window.history.replaceState("Home", "AGE OF EMPIRES 4 - BUILD ORDER TOOL", 'index.html?c=' + selectedciv.abbr + "&s=" + LZString.compressToEncodedURIComponent(str));
+}
+
+function saveToClipboard() {
   navigator.clipboard.writeText(window.location.href).then(function () {
     console.log('Async: Copying to clipboard was successful!');
   }, function (err) {
@@ -459,12 +463,20 @@ async function loadiconsJSON() {
 
   getSelectedRow();
 } //////////////////////////////////////////////////
-console.log("INDEX.JS");
-loadiconsJSON();
-document.getElementById('tooltipBox').style.display = "none";
 
-//////////////////////////////////////////////////
-// RANDOMIZE background
-//////////////////////////////////////////////////
-const backgroundOptions = ["02celebration", "03focuslongbowmen", "04lordrobertsb", "07raisedstakestwoknights", "10mongoltrebuchet", "11chinesetradecaravans", "12mongolscharging", "15paytributeb", "alarm"];
-document.getElementById("background").style.backgroundImage = "url(img/" + backgroundOptions[Math.floor(Math.random() * backgroundOptions.length)] + ".png)";
+async function main() {
+  console.log("INDEX.JS");
+  await loadiconsJSON();
+  saveToURL();
+
+  document.getElementById('tooltipBox').style.display = "none";
+
+  //////////////////////////////////////////////////
+  // RANDOMIZE background
+  //////////////////////////////////////////////////
+  const backgroundOptions = ["02celebration", "03focuslongbowmen", "04lordrobertsb", "07raisedstakestwoknights", "10mongoltrebuchet", "11chinesetradecaravans", "12mongolscharging", "15paytributeb", "alarm"];
+  document.getElementById("background").style.backgroundImage = "url(img/" + backgroundOptions[Math.floor(Math.random() * backgroundOptions.length)] + ".png)";
+}
+
+main();
+
